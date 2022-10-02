@@ -4,38 +4,50 @@
   padding: 0;
   box-sizing: border-box;
   list-style: none;
-  overflow: hidden;
 }
 
 body {
-  background-color: rgb(241, 238, 216);
+  margin: 0;
+  padding: 0;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  overflow: hidden;
 }
 
-.container {
+.title {
+  position: absolute;
+  width: 100vw;
+  background: rgb(29, 29, 29);
+  color: white;
+  font-size: 2rem;
+  padding: 5px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5rem;
+  gap: 0.5rem;
 }
-.container canvas {
-  background-color: white;
-  border: 2px solid black;
-}
-.container .toolbox {
-  align-self: stretch;
-  background-color: rgb(32, 32, 32);
+
+.toolbox {
+  position: absolute;
+  width: 80%;
+  background: rgb(210, 210, 210);
+  padding: 5px;
+  border-radius: 10px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  padding: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
-.container .toolbox > * {
+.toolbox #size {
+  font-size: 2rem;
+}
+.toolbox .btn {
+  transition: 0.1s linear;
   background-color: antiquewhite;
   border: none;
   display: inline-flex;
@@ -47,6 +59,6 @@ body {
   height: 50px;
   width: 50px;
 }
-.container .toolbox > *:last-child {
+.toolbox #clear {
   margin-left: auto;
 }/*# sourceMappingURL=styles.css.map */

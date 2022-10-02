@@ -136,8 +136,8 @@ window.addEventListener("load", () => {
 
   save.addEventListener("click", function (e) {
     const link = document.createElement("a");
-    link.download = "download.jpg";
-    link.href = canvas.toDataURL();
+    link.download = "download.jpeg";
+    link.href = canvas.toDataURL("image/jpeg");
     link.click();
     link.delete;
   });

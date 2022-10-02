@@ -1,108 +1,94 @@
 const clearButton = document.getElementById("clear");
-const canvascontainer = document.querySelector(".container");
-const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d");
 const increaseBtn = document.getElementById("increase");
 const decreaseBtn = document.getElementById("decrease");
 const sizeEl = document.getElementById("size");
 const colorEl = document.getElementById("color");
-let dragging = false;
-let color = "#000";
-let size = 20;
+
+let color = "black";
+let strokeSize = 10;
 
 window.addEventListener("DOMContentLoaded", () => {
-  sizeEl.textContent = size;
+  sizeEl.textContent = strokeSize;
 });
 
-function getMousePosition(e) {
-  var mouseX = ((e.offsetX * canvas.width) / canvas.clientWidth) | 0;
-  var mouseY = ((e.offsetY * canvas.height) / canvas.clientHeight) | 0;
-  return { x: mouseX, y: mouseY };
-}
+window.addEventListener("load", () => {
+  const canvas = document.querySelector("#canvas");
+  const ctx = canvas.getContext("2d");
 
-context.mozImageSmoothingEnabled = false;
-context.imageSmoothingEnabled = false;
+  //resizing
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
 
-/* CLEAR CANVAS */
-function clearCanvas() {
-  context.clearRect(0, 0, canvas.width, canvas.height);
-}
+  //variables
+  let painting = false;
 
-clearButton.addEventListener("click", clearCanvas);
-
-const putPoint = function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  if (dragging) {
-    context.lineTo(getMousePosition(e).x, getMousePosition(e).y);
-    context.lineWidth = size;
-    context.strokeStyle = color;
-    context.stroke();
-    context.beginPath();
-    context.arc(getMousePosition(e).x, getMousePosition(e).y, size / 2, 0, Math.PI * 2);
-    context.fillStyle = color;
-    context.fill();
-    context.beginPath();
-    context.moveTo(getMousePosition(e).x, getMousePosition(e).y);
+  //functions
+  function startPosition(e) {
+    painting = true;
+    draw(e);
   }
-};
 
-const engage = function (e) {
-  dragging = true;
-  putPoint(e);
-};
-const disengage = function () {
-  dragging = false;
-  context.beginPath();
-};
+  function endPosition() {
+    painting = false;
+    ctx.beginPath();
+  }
 
-canvas.addEventListener("mousedown", engage);
-canvas.addEventListener("mousemove", putPoint);
-canvas.addEventListener("mouseup", disengage);
-document.addEventListener("mouseup", disengage);
-canvas.addEventListener("contextmenu", disengage);
+  function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
-canvas.addEventListener(
-  "touchstart",
-  function (e) {
-    dragging = true;
-    var touch = e.touches[0];
-    var mouseEvent = new MouseEvent("mousemove", {
-      clientX: touch.clientX,
-      clientY: touch.clientY,
-    });
-    canvas.dispatchEvent(mouseEvent);
-  },
-  false
-);
-canvas.addEventListener(
-  "touchmove",
-  function (e) {
-    var touch = e.touches[0];
-    var mouseEvent = new MouseEvent("mousemove", {
-      clientX: touch.clientX,
-      clientY: touch.clientY,
-    });
-    canvas.dispatchEvent(mouseEvent);
-  },
-  false
-);
-canvas.addEventListener("touchend", disengage, false);
+  function draw(e) {
+    if (!painting) {
+      return;
+    }
+
+    e.preventDefault();
+    ctx.lineWidth = strokeSize;
+    ctx.lineCap = "round";
+
+    // ctx.lineTo(e.clientX, e.clientY);
+    if (e.type == "touchmove") {
+      ctx.lineTo(e.touches[0].clientX, e.touches[0].clientY);
+    } else if (e.type == "mousemove") {
+      ctx.lineTo(e.clientX, e.clientY);
+    }
+
+    ctx.stroke();
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+
+    // ctx.moveTo(e.clientX, e.clientY);
+    if (e.type == "touchmove") {
+      ctx.moveTo(e.touches[0].clientX, e.touches[0].clientY);
+    } else if (e.type == "mousemove") {
+      ctx.moveTo(e.clientX, e.clientY);
+    }
+  }
+
+  //event listeners
+  canvas.addEventListener("mousedown", startPosition);
+  canvas.addEventListener("touchstart", startPosition);
+  canvas.addEventListener("mouseup", endPosition);
+  canvas.addEventListener("touchend", endPosition);
+  canvas.addEventListener("mousemove", draw);
+  canvas.addEventListener("touchmove", draw);
+  clearButton.addEventListener("click", clearCanvas);
+});
 
 decreaseBtn.addEventListener("click", () => {
-  size -= 5;
-  if (size < 5) {
-    size = 5;
+  strokeSize -= 5;
+  if (strokeSize < 5) {
+    strokeSize = 5;
   }
-  sizeEl.textContent = size;
+  sizeEl.textContent = strokeSize;
 });
 
 increaseBtn.addEventListener("click", () => {
-  size += 5;
-  if (size > 50) {
-    size = 50;
+  strokeSize += 5;
+  if (strokeSize > 50) {
+    strokeSize = 50;
   }
-  sizeEl.textContent = size;
+  sizeEl.textContent = strokeSize;
 });
 
 colorEl.addEventListener("change", (e) => {

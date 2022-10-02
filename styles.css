@@ -41,24 +41,41 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
-.toolbox #size {
-  font-size: 2rem;
+.toolbox #undo {
+  margin: auto;
 }
 .toolbox .btn {
   transition: 0.1s linear;
-  background-color: antiquewhite;
+  background-color: rgb(250, 250, 250);
   border: none;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
   padding: 0.25rem;
-  margin: 0.2rem;
   height: 50px;
   width: 50px;
+  border-radius: 50%;
+}
+.toolbox .btn #color {
+  width: 60px;
+  height: 60px;
+  opacity: 0;
 }
 .toolbox #clear {
   margin-left: auto;
+}
+
+@media (max-width: 550px) {
+  .toolbox {
+    width: 95%;
+  }
+  .toolbox .btn {
+    font-size: 1.5rem;
+    height: 40px;
+    width: 40px;
+  }
 }/*# sourceMappingURL=styles.css.map */

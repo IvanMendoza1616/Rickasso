@@ -20,6 +20,8 @@ window.addEventListener("load", () => {
   //resizing
   canvas.height = window.innerHeight;
   canvas.width = window.innerWidth;
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   sizeEl.textContent = strokeSize;
   colorEl.value = color;
   colorContainer.style.backgroundColor = color;
@@ -63,6 +65,8 @@ window.addEventListener("load", () => {
 
   function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     pathsry = [];
     points = [];
   }
@@ -70,6 +74,8 @@ window.addEventListener("load", () => {
   function drawPaths() {
     // delete everything
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     // draw all the paths in the paths array
     pathsry.forEach((path) => {
       for (let i = 4; i < path.length; i += 4) {
@@ -87,6 +93,7 @@ window.addEventListener("load", () => {
   function Undo() {
     // remove the last path from the paths array
     pathsry.splice(-1, 1);
+
     // draw all the paths in the paths array
     drawPaths();
   }

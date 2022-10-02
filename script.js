@@ -15,6 +15,7 @@ window.addEventListener("load", () => {
   const canvas = document.querySelector("#canvas");
   const ctx = canvas.getContext("2d");
   const undo = document.getElementById("undo");
+  const save = document.getElementById("save");
 
   //resizing
   canvas.height = window.innerHeight;
@@ -132,6 +133,14 @@ window.addEventListener("load", () => {
   canvas.addEventListener("touchmove", draw);
   clearButton.addEventListener("click", clearCanvas);
   undo.addEventListener("click", Undo);
+
+  save.addEventListener("click", function (e) {
+    const link = document.createElement("a");
+    link.download = "download.png";
+    link.href = canvas.toDataURL();
+    link.click();
+    link.delete;
+  });
 });
 
 decreaseBtn.addEventListener("click", () => {

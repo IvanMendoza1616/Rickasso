@@ -16,16 +16,17 @@
     />
   </head>
   <body>
-    <div class="container">
-      <h1>Rickasso 2.0 <i class="fa-solid fa-paintbrush"></i></h1>
-      <canvas id="canvas" width="500" height="500"></canvas>
-      <div class="toolbox">
-        <button id="decrease"><i class="fa-solid fa-minus"></i></button>
-        <span id="size"></span>
-        <button id="increase"><i class="fa-solid fa-plus"></i></button>
-        <input type="color" id="color" />
-        <button id="clear"><i class="fa-solid fa-trash-can"></i></button>
+    <div class="title">Rickasso <i class="fa-solid fa-paintbrush"></i></div>
+    <div class="toolbox">
+      <div class="btn" id="decrease"><i class="fa-solid fa-minus"></i></div>
+      <div id="size"></div>
+      <div class="btn" id="increase"><i class="fa-solid fa-plus"></i></div>
+      <div class="btn">
+        <input class="btn" type="color" id="color" />
       </div>
+      <div class="btn" id="clear"><i class="fa-solid fa-trash-can"></i></div>
     </div>
+
+    <canvas id="canvas"></canvas>
   </body>
 </html>

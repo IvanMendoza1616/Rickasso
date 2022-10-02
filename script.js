@@ -5,7 +5,7 @@ const sizeEl = document.getElementById("size");
 const colorEl = document.getElementById("color");
 
 let color = "black";
-let strokeSize = 10;
+let strokeSize = 50;
 
 window.addEventListener("DOMContentLoaded", () => {
   sizeEl.textContent = strokeSize;
@@ -25,6 +25,7 @@ window.addEventListener("load", () => {
   //functions
   function startPosition(e) {
     painting = true;
+
     draw(e);
   }
 
@@ -43,6 +44,14 @@ window.addEventListener("load", () => {
     }
 
     e.preventDefault();
+    //ctx.beginPath();
+    if (e.type == "touchstart") {
+      ctx.arc(e.touches[0].clientX, e.touches[0].clientY, 0, 0, 2 * Math.PI);
+    } else if (e.type == "mousedown") {
+      ctx.arc(e.clientX, e.clientY, 0, 0, 2 * Math.PI);
+    }
+    ctx.fillStyle = color;
+    ctx.fill();
     ctx.lineWidth = strokeSize;
     ctx.lineCap = "round";
 
